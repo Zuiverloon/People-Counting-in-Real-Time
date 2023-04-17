@@ -352,7 +352,7 @@ def get_frame():
         stringData=imgencode.tostring()
         yield (b'--frame\r\n'
             b'Content-Type: text/plain\r\n\r\n'+stringData+b'\r\n')
-        time.sleep(0.5)
+        time.sleep(0.1)
 
 
 @app.route('/hello')
