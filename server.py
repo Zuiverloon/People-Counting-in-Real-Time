@@ -6,7 +6,7 @@ import numpy
 app = Flask(__name__)
 
 def get_frame():
-    file="../videos/output.mp4"
+    file="videos/output.mp4"
     #camera_port=0
     camera=cv2.VideoCapture(file)
 
@@ -22,7 +22,7 @@ def get_frame():
 def hello():
     return 'Hello, World!'
 
-@app.route('/vid')
+@app.route('/video')
 def vid():
      return Response(get_frame(),mimetype='multipart/x-mixed-replace; boundary=frame')
 
