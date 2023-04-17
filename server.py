@@ -6,9 +6,9 @@ import numpy
 app = Flask(__name__)
 
 def get_frame():
-	file = "../videos/output.mp4"
+    file="../videos/output.mp4"
     #camera_port=0
-    camera=cv2.VideoCapture(file) 
+    camera=cv2.VideoCapture(file)
 
     while True:
         retval, im = camera.read()
