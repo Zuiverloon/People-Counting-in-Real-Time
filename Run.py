@@ -12,6 +12,7 @@ from itertools import zip_longest
 from flask import Flask, render_template, Response
 
 t0 = time.time()
+outputfile = ""
 
 def run():
 
@@ -108,6 +109,7 @@ def run():
 		# if we are supposed to be writing a video to disk, initialize
 		# the writer
 		if args["output"] is not None and writer is None:
+			outputfile = args["output"]
 			fourcc = cv2.VideoWriter_fourcc(*"mp4v")
 			writer = cv2.VideoWriter(args["output"], fourcc, 30,
 				(W, H), True)
@@ -342,7 +344,7 @@ def run():
 app = Flask(__name__)
 
 def get_frame():
-    file=args["output"]
+    file=outputfile
     #camera_port=0
     camera=cv2.VideoCapture(file)
 
