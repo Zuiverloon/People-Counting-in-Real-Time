@@ -9,6 +9,7 @@ import numpy as np
 import argparse, imutils
 import time, dlib, cv2, datetime
 from itertools import zip_longest
+from flask import Flask, render_template, Response
 
 t0 = time.time()
 
@@ -338,16 +339,32 @@ def run():
 	# close any open windows
 	cv2.destroyAllWindows()
 
+app = Flask(__name__)
 
-##learn more about different schedules here: https://pypi.org/project/schedule/
-if config.Scheduler:
-	##Runs for every 1 second
-	#schedule.every(1).seconds.do(run)
-	##Runs at every day (09:00 am). You can change it.
-	schedule.every().day.at("09:00").do(run)
+def get_frame():
+    file="videos/output.mp4"
+    #camera_port=0
+    camera=cv2.VideoCapture(file)
 
-	while 1:
-		schedule.run_pending()
+    while True:
+        retval, im = camera.read()
+        imgencode=cv2.imencode('.jpg',im)[1]
+        stringData=imgencode.tostring()
+        yield (b'--frame\r\n'
+            b'Content-Type: text/plain\r\n\r\n'+stringData+b'\r\n')
 
-else:
+
+@app.route('/hello')
+def hello():
+    return 'Hello, World!'
+
+@app.route('/video')
+def vid():
+     return Response(get_frame(),mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+
+
+if __name__ == '__main__':
 	run()
+
