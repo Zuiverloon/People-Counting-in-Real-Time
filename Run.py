@@ -345,6 +345,7 @@ app = Flask(__name__)
 
 def get_frame():
     file=outputfile
+    print(file)
     #camera_port=0
     camera=cv2.VideoCapture(file)
 
