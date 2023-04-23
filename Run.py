@@ -226,6 +226,7 @@ def run():
 					# is moving up) AND the centroid is above the center
 					# line, count the object
 					if direction < 0 and centroid[1] < H // 2:
+                                                print("someone go outside")
 						totalUp += 1
 						empty.append(totalUp)
 						to.counted = True
@@ -234,6 +235,7 @@ def run():
 					# is moving down) AND the centroid is below the
 					# center line, count the object
 					elif direction > 0 and centroid[1] > H // 2:
+                                                print("someone go inside")
 						totalDown += 1
 						empty1.append(totalDown)
 						#print(empty1[-1])
@@ -251,7 +253,7 @@ def run():
 					x = []
 					# compute the sum of total people inside
 					x.append(len(empty1)-len(empty))
-					#print("Total people inside:", x)
+					print("Total people inside:", x)
 
 
 			# store the trackable object in our dictionary
