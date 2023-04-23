@@ -13,6 +13,19 @@ from flask import Flask, render_template, Response
 
 t0 = time.time()
 outputfile = "/People-Counting-in-Real-Time/videos/output.mp4"
+logs = []
+insideNum = 0
+outsideNum = 0
+
+def inside():
+	insideNum+=1
+	localtime = time.asctime( time.localtime(time.time()) )
+	logs.append(localtime+": someone has come in. Totally there are "+str(insideNum)+" people entered")
+
+def outside():
+	outsideNum+=1
+	localtime = time.asctime( time.localtime(time.time()) )
+	logs.append(localtime+": someone has come out Totally there are "+str(outsideNum)+" people left")
 
 def run():
 
@@ -227,6 +240,7 @@ def run():
 					# line, count the object
 					if direction < 0 and centroid[1] < H // 2:
 						print("someone go outside")
+						outside()
 						totalUp += 1
 						empty.append(totalUp)
 						to.counted = True
@@ -236,6 +250,7 @@ def run():
 					# center line, count the object
 					elif direction > 0 and centroid[1] > H // 2:
 						print("someone go inside")
+						inside()
 						totalDown += 1
 						empty1.append(totalDown)
 						#print(empty1[-1])
@@ -253,7 +268,7 @@ def run():
 					x = []
 					# compute the sum of total people inside
 					x.append(len(empty1)-len(empty))
-					print("Total people inside:", x)
+					#print("Total people inside:", x)
 
 
 			# store the trackable object in our dictionary
@@ -362,6 +377,10 @@ def get_frame():
 @app.route('/hello')
 def hello():
     return 'Hello, World!'
+
+@app.route('/logs')
+def getLogs():
+	return logs
 
 @app.route('/video')
 def vid():
