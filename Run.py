@@ -25,7 +25,7 @@ def inside():
 	logs.append(localtime+": someone has come in. Totally there are "+str(insideNum)+" people entered")
 
 def outside():
-	global outside
+	global outsideNum
 	outsideNum+=1
 	localtime = time.asctime( time.localtime(time.time()) )
 	global logs
