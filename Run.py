@@ -18,13 +18,17 @@ insideNum = 0
 outsideNum = 0
 
 def inside():
+	global insideNum
 	insideNum+=1
 	localtime = time.asctime( time.localtime(time.time()) )
+	global logs
 	logs.append(localtime+": someone has come in. Totally there are "+str(insideNum)+" people entered")
 
 def outside():
+	global outside
 	outsideNum+=1
 	localtime = time.asctime( time.localtime(time.time()) )
+	global logs
 	logs.append(localtime+": someone has come out Totally there are "+str(outsideNum)+" people left")
 
 def run():
@@ -380,6 +384,7 @@ def hello():
 
 @app.route('/logs')
 def getLogs():
+	global logs
 	return logs
 
 @app.route('/video')
