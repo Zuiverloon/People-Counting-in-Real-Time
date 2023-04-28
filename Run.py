@@ -13,6 +13,7 @@ from flask import Flask, render_template, Response
 
 t0 = time.time()
 outputfile = "/People-Counting-in-Real-Time/videos/output.mp4"
+inputfile = "/People-Countint-in-Real-Time/videos/example_01.mp4"
 logs = []
 insideNum = 0
 outsideNum = 0
@@ -363,8 +364,7 @@ def run():
 
 app = Flask(__name__)
 
-def get_frame():
-    file=outputfile
+def get_frame(file):
     print(file)
     #camera_port=0
     camera=cv2.VideoCapture(file)
@@ -387,9 +387,13 @@ def getLogs():
 	global logs
 	return logs
 
-@app.route('/video')
-def vid():
-     return Response(get_frame(),mimetype='multipart/x-mixed-replace; boundary=frame')
+@app.route('/output')
+def output():
+     return Response(get_frame(outputfile),mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/input')
+def input():
+     return Response(get_frame(inputfile),mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 
