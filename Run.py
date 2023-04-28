@@ -13,7 +13,7 @@ from flask import Flask, render_template, Response
 
 t0 = time.time()
 outputfile = "/People-Counting-in-Real-Time/videos/output.mp4"
-inputfile = "/People-Countint-in-Real-Time/videos/example_01.mp4"
+inputfile = "/People-Counting-in-Real-Time/videos/example_01.mp4"
 logs = []
 insideNum = 0
 outsideNum = 0
